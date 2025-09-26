@@ -1,3 +1,10 @@
 site_name: Columbia Gadget Works Info Pages
 repo_url: https://github.com/ColumbiaGadgetWorks/InfoSheets
 edit_uri: edit/master/docs/
+site_url: https://columbiagadgetworks.github.io/InfoSheets/
+
+plugins:
+  - search
+  - qr_plugin
+
+
