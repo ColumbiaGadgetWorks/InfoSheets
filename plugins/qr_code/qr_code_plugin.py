@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from mkdocs.plugins import BasePlugin
 
 
-class QRCodePlugin(BasePlugin):
+class QrCodePlugin(BasePlugin):
     def on_page_markdown(self, markdown, page, config, files):
         if not config.get('site_url'):
             return markdown

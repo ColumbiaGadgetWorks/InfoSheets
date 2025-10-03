@@ -5,6 +5,7 @@ site_url: https://columbiagadgetworks.github.io/InfoSheets/
 
 plugins:
   - search
-  - qr_plugin
+  - qr_code
 
-
+theme:
+  name: material

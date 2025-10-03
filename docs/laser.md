@@ -1,7 +1,5 @@
 # Laser
 
-[QRIMAGE]
-
 # Model
 
 # Documentation
