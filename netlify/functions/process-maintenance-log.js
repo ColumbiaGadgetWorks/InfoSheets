@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 302,
       headers: {
-        Location: '/maintenance-form-success'
+        Location: '/laser-log?success=true'
       }
     };
 

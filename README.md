@@ -122,24 +122,45 @@ If you encounter issues:
 
 For more help, see the [MkDocs documentation](https://www.mkdocs.org).
 
-This project is to produce a github hosted website with pages that correspond to physical machines in the 
-Columbia Gadget Works makerspace.  
+## Project Purpose
 
-These pages are designed to be printed and posted near the equipment and give users essential information
-on the use and care of the machines
+This project produces a Netlify-hosted website with print-optimized pages for physical machines in the Columbia Gadget Works makerspace. Each page serves as a **Quick Start Guide** designed to be printed on a single 8.5x11" sheet and posted near equipment.
 
-The pages are to be formatted in a way that is easy to print and easy to read when printed.
+### Key Features:
+- **Print-optimized layout**: Single-page format with compact styling for B&W printing
+- **Equipment logging**: QR codes link to universal equipment log system
+- **Easy editing**: GitHub integration for content updates
+- **Database-driven logs**: PostgreSQL storage via Netlify Functions
 
-Each page will include a QR code that points to the edit page on github.
+## Lessons Learned
 
-The github workflow will automatically trigger and rebuild the site after editing the file
+### Print Optimization
+- **Single-page constraint**: All content must fit on one printed page
+- **B&W styling**: Use pure black/white with thick borders for visibility
+- **Compact typography**: 10-11px fonts with tight line spacing (1.1-1.2)
+- **Minimal margins**: 0.2in page margins to maximize content area
 
-The site uses mkdocs and mkdocs-material.
+### Equipment Page Structure
+- **Safety first**: Prominent safety warnings with thick black borders
+- **Essential info only**: Software, materials, startup/shutdown procedures, contact
+- **Inline procedures**: Numbered steps in headers to save vertical space
+- **Dual QR codes**: Equipment logging and page editing side-by-side
 
-It also assumes UV/UVX for managing virtual environment
+### Technical Architecture
+- **Universal logging**: Single `equipment-log.md` with URL parameters instead of separate pages
+- **Macro limitations**: Direct HTML more reliable than complex MkDocs macros
+- **Database over files**: Netlify Functions + PostgreSQL more reliable than GitHub API
+- **Environment variables**: Use `NETLIFY_DATABASE_URL` for database connections
 
-# Build instructions for local build and testing
+### Deployment Gotchas
+- **Empty directories**: Remove unused `custom_dir: overrides` from mkdocs.yml
+- **Print CSS**: Use `@media print` with `!important` overrides for proper B&W rendering
+- **QR code sizing**: Balance scanability with space constraints (80px equipment, 70px edit)
 
-1. Install dependencies
-   ```
+### Content Strategy
+- **Equipment-specific contacts**: Each page has dedicated support person
+- **Consistent terminology**: "Equipment Log" encourages routine usage logging
+- **Placeholder text**: Equipment-specific form placeholders ("What did you cut/print/mill?")
+
+## Build Instructions
    

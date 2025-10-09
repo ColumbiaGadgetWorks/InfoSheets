@@ -9,3 +9,28 @@ plugins:
 
 theme:
   name: material
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: orange
+  logo: assets/cgw-logo.png
+  favicon: assets/cgw-logo.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Equipment:
+    - Laser Cutter: laser.md
+    - Vinyl Cutter: vinyl-cutter.md
+    - 3D Printer: 3d-printer.md
+    - Shapeoko CNC: shapeoko-cnc.md
+  - Equipment Log: equipment-log.md
+
+extra_css:
+  - stylesheets/extra.css

@@ -1,4 +1,5 @@
-mkdocs>=1.6.1
-mkdocs-material>=9.6.20
+mkdocs
+mkdocs-material
 qrcode[pil]
 mkdocs-macros-plugin
+markupsafe
