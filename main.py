@@ -84,11 +84,13 @@ def define_env(env):
         if not equipment_name:
             equipment_name = "unknown"
         
-        # Build the maintenance form URL
-        site_url = config.get('site_url', 'https://columbiagadgetworks.github.io/InfoSheets/')
-        form_url = f"{site_url}maintenance-form?equipment={equipment_name}"
+        # Build the maintenance log page URL
+        site_url = config.get('site_url', 'https://cgwinfosheets.netlify.app/')
+        if not site_url.endswith('/'):
+            site_url += '/'
+        log_url = f"{site_url}{equipment_name}-log"
         
-        return qr_code_for_page(edit_url=form_url)
+        return qr_code_for_page(edit_url=log_url)
 
 
 def main():

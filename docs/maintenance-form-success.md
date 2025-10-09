@@ -1,3 +1,7 @@
+---
+title: Maintenance Log Entry Submitted
+---
+
 # Maintenance Log Entry Submitted
 
 ✅ **Thank you!** Your maintenance log entry has been successfully submitted.

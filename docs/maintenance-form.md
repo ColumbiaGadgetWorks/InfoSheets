@@ -1,6 +1,6 @@
 # Equipment Maintenance Log Entry
 
-<form name="maintenance-log" method="POST" data-netlify="true" action="/maintenance-form-success">
+<form name="maintenance-log" method="POST" data-netlify="true" action="maintenance-form-success">
   <input type="hidden" name="form-name" value="maintenance-log" />
   
   <div style="margin-bottom: 20px;">

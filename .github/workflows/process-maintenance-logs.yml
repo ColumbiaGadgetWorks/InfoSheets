@@ -36,8 +36,8 @@ jobs:
           # Current date
           current_date = datetime.now().strftime('%Y-%m-%d')
           
-          # File path for the equipment
-          file_path = f'docs/{equipment.lower()}.md'
+          # File path for the equipment log
+          file_path = f'docs/{equipment.lower()}-log.md'
           
           if os.path.exists(file_path):
               with open(file_path, 'r') as f:

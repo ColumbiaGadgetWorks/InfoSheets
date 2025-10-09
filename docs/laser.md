@@ -32,14 +32,12 @@ Need to update this information? Scan the QR code to edit on GitHub:
 
 {{ github_edit_qr() }}
 
-## Quick Maintenance Log Entry
+[Edit on GitHub]({{ config.repo_url }}/{{ config.edit_uri }}{{ page.file.src_path }})
+
+## Equipment Log
 Add a maintenance entry without GitHub login:
 
 {{ maintenance_log_qr() }}
 
-## Maintenance Log
-
-| Date | Name | Notes |
-| --- | --- | --- |
-| | | | 
+[Maintenance Log]({{ config.site_url }}laser-log) 
 
