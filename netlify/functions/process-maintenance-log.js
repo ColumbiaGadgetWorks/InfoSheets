@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 302,
       headers: {
-        Location: '/laser-log?success=true'
+        Location: `/equipment-log?equipment=${equipment}&success=true`
       }
     };
 
