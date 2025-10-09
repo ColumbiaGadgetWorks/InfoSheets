@@ -1,8 +1,14 @@
 {
-  "name": "infosheets-functions",
+  "name": "infosheets",
   "version": "1.0.0",
-  "description": "Netlify functions for InfoSheets maintenance logging",
+  "description": "MkDocs site for makerspace equipment documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "@octokit/rest": "^20.0.0"
-  }
+    "pg": "^8.11.3"
+  },
+  "author": "",
+  "license": "ISC"
 }

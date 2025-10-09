@@ -16,3 +16,9 @@
   from = "/api/maintenance-log"
   to = "/.netlify/functions/process-maintenance-log"
   status = 200
+
+# Redirect for maintenance form success page
+[[redirects]]
+  from = "/maintenance-form-success"
+  to = "/maintenance-form-success/"
+  status = 301

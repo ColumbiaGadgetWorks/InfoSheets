@@ -6,15 +6,50 @@ title: Laser Cutter Maintenance Log
 
 ## Current Log Entries
 
-| Date | Name | Notes |
-| --- | --- | --- |
-| | | |
+<div id="maintenance-logs">Loading maintenance logs...</div>
+
+<script>
+async function loadMaintenanceLogs() {
+  try {
+    const response = await fetch('/.netlify/functions/get-maintenance-logs?equipment=laser');
+    const data = await response.json();
+    
+    if (data.logs && data.logs.length > 0) {
+      const table = `
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Name</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            ${data.logs.map(log => `
+              <tr>
+                <td>${new Date(log.created_at).toLocaleDateString()}</td>
+                <td>${log.name}</td>
+                <td>${log.notes}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+      document.getElementById('maintenance-logs').innerHTML = table;
+    } else {
+      document.getElementById('maintenance-logs').innerHTML = '<p>No maintenance logs yet.</p>';
+    }
+  } catch (error) {
+    console.error('Error loading logs:', error);
+    document.getElementById('maintenance-logs').innerHTML = '<p>Error loading maintenance logs.</p>';
+  }
+}
+
+// Load logs when page loads
+document.addEventListener('DOMContentLoaded', loadMaintenanceLogs);
+</script>
 
 ---
 
 ## Add New Entry
 
-<form name="maintenance-log" method="POST" data-netlify="true" action="/maintenance-form-success">
+<form name="maintenance-log" method="POST" data-netlify="true" action="/.netlify/functions/process-maintenance-log">
   <input type="hidden" name="form-name" value="maintenance-log" />
   <input type="hidden" name="equipment" value="laser" />
   

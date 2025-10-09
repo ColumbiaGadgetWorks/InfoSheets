@@ -1,4 +1,4 @@
-const { Octokit } = require('@octokit/rest');
+const { Client } = require('pg');
 
 exports.handler = async (event, context) => {
   // Only handle POST requests
@@ -16,25 +16,38 @@ exports.handler = async (event, context) => {
     const name = params.get('name') || 'Anonymous';
     const notes = params.get('notes') || 'No notes provided';
 
-    // GitHub configuration
-    const octokit = new Octokit({
-      auth: process.env.GITHUB_TOKEN
-    });
+    // Log the received data for debugging
+    console.log('Form submission received:', { equipment, name, notes });
 
-    const owner = 'ColumbiaGadgetWorks';
-    const repo = 'InfoSheets';
-
-    // Trigger GitHub Action via repository dispatch
-    await octokit.rest.repos.createDispatchEvent({
-      owner,
-      repo,
-      event_type: 'maintenance-log-entry',
-      client_payload: {
-        equipment,
-        name,
-        notes
+    // Database configuration
+    if (!process.env.NETLIFY_DATABASE_URL) {
+      throw new Error('NETLIFY_DATABASE_URL environment variable not set');
+    }
+    
+    console.log('NETLIFY_DATABASE_URL present:', !!process.env.NETLIFY_DATABASE_URL);
+    console.log('NETLIFY_DATABASE_URL preview:', process.env.NETLIFY_DATABASE_URL?.substring(0, 20) + '...');
+    
+    const client = new Client({
+      connectionString: process.env.NETLIFY_DATABASE_URL,
+      ssl: process.env.NETLIFY_DATABASE_URL.includes('localhost') ? false : {
+        rejectUnauthorized: false
       }
     });
+
+    await client.connect();
+    console.log('Connected to database');
+
+    // Insert maintenance log entry
+    const query = `
+      INSERT INTO maintenance_logs (equipment, name, notes, created_at)
+      VALUES ($1, $2, $3, NOW())
+      RETURNING id, created_at
+    `;
+    
+    const result = await client.query(query, [equipment, name, notes]);
+    await client.end();
+    
+    console.log('Maintenance log entry saved:', result.rows[0]);
 
     return {
       statusCode: 302,
