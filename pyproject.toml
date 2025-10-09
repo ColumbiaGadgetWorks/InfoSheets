@@ -8,7 +8,5 @@ dependencies = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.6.20",
     "qrcode[pil]",
+    "mkdocs-macros-plugin",
 ]
-
-[project.entry-points."mkdocs.plugins"]
-"qr_code" = "is2.qr_code:QRCodePlugin"

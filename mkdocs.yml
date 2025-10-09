@@ -1,11 +1,11 @@
 site_name: Columbia Gadget Works Info Pages
 repo_url: https://github.com/ColumbiaGadgetWorks/InfoSheets
 edit_uri: edit/master/docs/
-site_url: https://columbiagadgetworks.github.io/InfoSheets/
+site_url: https://cgwinfosheets.netlify.app
 
 plugins:
   - search
-  - qr_code
+  - macros
 
 theme:
   name: material

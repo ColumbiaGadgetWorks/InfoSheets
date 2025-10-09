@@ -1,17 +1,24 @@
-# Welcome to MkDocs
+# Columbia Gadget Works Info Sheets
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Welcome to the Columbia Gadget Works makerspace equipment documentation. These pages provide essential information for using and maintaining our equipment safely.
 
-## Commands
+## How to Use These Pages
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Each page is designed to be:
+- **Printable** - Optimized for printing and posting near equipment
+- **Scannable** - QR codes link directly to GitHub for easy editing
+- **Accessible** - Clear, concise information for all skill levels
 
-## Project layout
+## Edit This Page
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+Want to improve this documentation? Scan the QR code below to edit this page on GitHub:
+
+{{ github_edit_qr() }}
+
+## Equipment Documentation
+
+* [Laser Cutter](laser.md) - Safety and operation guide
+
+---
+
+*This documentation is maintained by the Columbia Gadget Works community. Help us keep it accurate and up-to-date!*

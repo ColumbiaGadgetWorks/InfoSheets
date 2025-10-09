@@ -1,0 +1,18 @@
+[build]
+  publish = "site"
+  command = "pip install -r requirements.txt && mkdocs build"
+
+[build.environment]
+  PYTHON_VERSION = "3.12"
+
+[[forms]]
+  name = "maintenance-log"
+
+[functions]
+  directory = "netlify/functions"
+
+# Redirect for form submissions to trigger webhook
+[[redirects]]
+  from = "/api/maintenance-log"
+  to = "/.netlify/functions/process-maintenance-log"
+  status = 200

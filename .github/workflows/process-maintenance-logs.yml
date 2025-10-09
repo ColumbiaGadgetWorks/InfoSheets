@@ -1,0 +1,87 @@
+name: Process Maintenance Log Submissions
+
+on:
+  repository_dispatch:
+    types: [maintenance-log-entry]
+
+jobs:
+  update-maintenance-log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Process maintenance log entry
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+          
+          # Get the payload from the repository dispatch
+          payload = json.loads(os.environ['GITHUB_EVENT_PATH'])
+          client_payload = payload.get('client_payload', {})
+          
+          equipment = client_payload.get('equipment', 'unknown')
+          name = client_payload.get('name', 'Anonymous')
+          notes = client_payload.get('notes', 'No notes provided')
+          
+          # Current date
+          current_date = datetime.now().strftime('%Y-%m-%d')
+          
+          # File path for the equipment
+          file_path = f'docs/{equipment.lower()}.md'
+          
+          if os.path.exists(file_path):
+              with open(file_path, 'r') as f:
+                  content = f.read()
+              
+              # Find the maintenance log table and add the new entry
+              lines = content.split('\n')
+              new_lines = []
+              in_table = False
+              table_found = False
+              
+              for line in lines:
+                  new_lines.append(line)
+                  
+                  # Look for the maintenance log table header
+                  if '| Date | Name | Notes |' in line:
+                      table_found = True
+                      in_table = True
+                      # Add the separator line
+                      new_lines.append(next(iter(lines[lines.index(line)+1:]), ''))
+                      # Add the new entry
+                      new_lines.append(f'| {current_date} | {name} | {notes} |')
+                      in_table = False
+                      # Skip the original separator line
+                      continue
+                  elif in_table and line.startswith('| ---'):
+                      continue  # Skip this line as we already added it
+              
+              if table_found:
+                  # Write the updated content back
+                  with open(file_path, 'w') as f:
+                      f.write('\n'.join(new_lines))
+                  
+                  print(f"Added maintenance log entry for {equipment}")
+              else:
+                  print(f"Maintenance log table not found in {file_path}")
+          else:
+              print(f"Equipment file {file_path} not found")
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/
+          git diff --staged --quiet || git commit -m "Add maintenance log entry for ${{ github.event.client_payload.equipment }}"
+          git push
